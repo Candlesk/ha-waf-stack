@@ -1,0 +1,122 @@
+<!-- Hero Section -->
+<div class="p-6 bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
+  <h1 class="text-2xl font-bold mb-4">Built with Clean Architecture</h1>
+  <p class="mb-6">A modern, responsive contact management application built with Angular 20, .NET 9, and PostgreSQL. All packaged in Docker containers for easy deployment.</p>
+
+  <div class="flex flex-wrap gap-4 mb-6">
+    <button mat-stroked-button color="primary" class="dark:border-white dark:text-white" (click)="openGitHub()">
+      <mat-icon>code</mat-icon>
+      View on GitHub
+    </button>
+
+    <button mat-stroked-button color="primary" class="dark:border-white dark:text-white"  (click)="openDemo()">
+      <mat-icon>play_arrow</mat-icon>
+      Watch Demo
+    </button>
+  </div>
+
+  <!-- Demo UI -->
+  <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-lg shadow-md mb-8 max-w-md">
+    <p class="text-sm opacity-60 mb-2">contact-app.exe</p>
+    <div class="mb-3 bg-gray-100 dark:bg-gray-700 p-2 rounded">
+      Search contacts...
+    </div>
+    <div class="space-y-2">
+      <div class="flex items-center p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
+        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-3">JS</div>
+        <span>John Smith</span>
+      </div>
+      <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded">
+        <div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center mr-3">MG</div>
+        <span>Maria Garcia</span>
+      </div>
+      <div class="flex items-center p-2 bg-gray-50 dark:bg-gray-700 rounded">
+        <div class="w-8 h-8 rounded-full bg-tertiary text-white flex items-center justify-center mr-3">DJ</div>
+        <span>David Johnson</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wave Divider - Fixed to not hide content -->
+<!-- <div class="relative h-24 overflow-hidden bg-white dark:bg-gray-900">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="absolute bottom-0 left-0 w-full" preserveAspectRatio="none">
+    <path fill="currentColor" class="text-gray-100 dark:text-gray-800" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,186.7C672,203,768,181,864,154.7C960,128,1056,96,1152,85.3C1248,75,1344,85,1392,90.7L1440,96L1440,320L1440,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+  </svg>
+</div> -->
+
+<!-- Technologies Section -->
+<div class="p-6 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white">
+  <h2 class="text-xl font-bold mb-6">Built with modern technologies ensuring scalability, security, and maintainability</h2>
+
+  <!-- Tech Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+    @for (tech of technologies(); track tech.title) {
+      <div class="bg-white dark:bg-gray-700 rounded-lg p-4 shadow-md hover:translate-y-[-5px] transition-transform duration-300 border border-gray-200 dark:border-gray-600">
+        <div class="flex items-center mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+            <mat-icon class="text-primary dark:text-blue-200">{{tech.icon}}</mat-icon>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">{{tech.title}}</h3>
+        </div>
+        <p class="text-gray-600 dark:text-gray-300">{{tech.description}}</p>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="bg-white dark:bg-gray-900 p-6 text-gray-800 dark:text-white">
+  <h2 class="text-xl font-bold mb-6">Key Features</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- Feature 1 -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md border border-gray-200 dark:border-gray-700">
+      <div class="flex items-center mb-4">
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+          <mat-icon class="text-primary dark:text-blue-300">contact_page</mat-icon>
+        </div>
+        <h3 class="text-lg font-bold">Contact Management</h3>
+      </div>
+      <p class="text-gray-600 dark:text-gray-300">Easily add, edit, and organize your contacts with a user-friendly interface.</p>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md border border-gray-200 dark:border-gray-700">
+      <div class="flex items-center mb-4">
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+          <mat-icon class="text-primary dark:text-blue-300">security</mat-icon>
+        </div>
+        <h3 class="text-lg font-bold">Secure Authentication</h3>
+      </div>
+      <p class="text-gray-600 dark:text-gray-300">JWT-based authentication and authorization for secure access control.</p>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md border border-gray-200 dark:border-gray-700">
+      <div class="flex items-center mb-4">
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+          <mat-icon class="text-primary dark:text-blue-300">dark_mode</mat-icon>
+        </div>
+        <h3 class="text-lg font-bold">Dark/Light Mode</h3>
+      </div>
+      <p class="text-gray-600 dark:text-gray-300">Customizable theme with automatic dark mode support for better usability.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<div class="bg-primary text-white p-6 text-center">
+  <h2 class="text-xl font-bold mb-4">Ready to Get Started?</h2>
+  <p class="mb-6">Try out the contact management system today and experience the power of clean architecture.</p>
+
+  <div class="flex flex-wrap justify-center gap-4">
+    <button mat-raised-button class="bg-white text-primary font-medium" (click)="openDemo()">
+      Try Demo
+    </button>
+
+    <button mat-raised-button class="bg-white text-primary font-medium" (click)="openDocumentation()">
+      Learn More
+    </button>
+  </div>
+</div>

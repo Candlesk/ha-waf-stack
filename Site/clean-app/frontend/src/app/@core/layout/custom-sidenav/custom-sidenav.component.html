@@ -1,0 +1,13 @@
+<!-- Main Menu List -->
+<mat-nav-list class="flex flex-col gap-1">
+  @for(item of menuItems(); track item.label) {
+    @if(hasPermission(item.permission)) {
+      <app-menu-item
+        [item]="item"
+        [collapsed]="isCollapsed()"
+        routeHistory=""
+        (activeStatusChanged)="onMenuItemActiveStatusChanged($event)">
+      </app-menu-item>
+    }
+  }
+</mat-nav-list>

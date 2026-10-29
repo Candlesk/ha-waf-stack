@@ -1,0 +1,54 @@
+<mat-toolbar class="mat-elevation-z3 relative z-10 border-b border-gray-200 dark:border-gray-700">
+  <!-- Left side - Menu and App Title -->
+  <div class="flex items-center">
+    <button
+      mat-icon-button
+      class="mr-2"
+      (click)="onToggleCollapsed()"
+      [attr.aria-label]="isMobile() ? 'Toggle mobile menu' : 'Toggle sidebar'"
+    >
+      <mat-icon>{{ getMenuIcon() }}</mat-icon>
+    </button>
+    <a routerLink="/" class="font-medium text-lg hover:text-primary transition-colors no-underline text-on-surface">
+      Contacts Portal
+    </a>
+  </div>
+
+  <!-- Spacer -->
+  <span class="flex-1"></span>
+
+  <!-- Right side - User Info -->
+  <div class="flex items-center">
+    <!-- Theme Toggle -->
+    <button
+      mat-icon-button
+      class="mx-2"
+      (click)="toggleDarkMode()"
+      aria-label="Toggle theme"
+    >
+      <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+
+    <!-- User Profile Menu -->
+    @if (user(); as user) {
+      <button mat-button  class="hidden md:flex">
+        <span class="mx-2">{{ user.firstName }} {{ user.lastName }}</span>
+        <!-- <mat-icon>arrow_drop_down</mat-icon> -->
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="md:hidden">
+        <mat-icon>account_circle</mat-icon>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item (click)="navigateToProfile()">
+          <mat-icon>account_circle</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    }
+  </div>
+</mat-toolbar>

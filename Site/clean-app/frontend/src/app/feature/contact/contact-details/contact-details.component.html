@@ -1,0 +1,78 @@
+<div class="container mx-auto p-4">
+  <!-- Header -->
+  <div class="max-w-6xl mx-auto mb-6 bg-primary text-white rounded-lg shadow-sm overflow-hidden transition-all duration-300">
+    <div class="p-6 flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <button mat-icon-button routerLink="/contacts" matTooltip="Back to contacts">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1 class="text-2xl font-bold">Contact Details</h1>
+      </div>
+      <div class="flex gap-2">
+        <button mat-raised-button color="primary" routerLink="/contacts">
+          <mat-icon>arrow_back</mat-icon>
+          Back to List
+        </button>
+        <button mat-raised-button
+                color="accent"
+                [routerLink]="['/contacts/edit', $safeNavigationMigration(contact()?.id)]"
+                *hasPermission="{ page: 'Contacts', operation: 'Update' }">
+          <mat-icon>edit</mat-icon>
+          Edit Contact
+        </button>
+        <button mat-raised-button
+                color="warn"
+                (click)="deleteContact()"
+                *hasPermission="{ page: 'Contacts', operation: 'Delete' }">
+          <mat-icon>delete</mat-icon>
+          Delete Contact
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto bg-surface-container rounded-lg shadow-lg overflow-hidden transition-all duration-300">
+    <!-- Contact Details -->
+    <div class="p-6 space-y-6">
+      <!-- Name Section -->
+      <div class="flex items-center space-x-4">
+        <mat-icon class="text-4xl text-primary">account_circle</mat-icon>
+        <div class="text-2xl font-bold">{{fullName()}}</div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Email -->
+        <div class="space-y-2">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Email</div>
+          <div class="text-on-surface">{{contact()?.email}}</div>
+        </div>
+
+        <!-- Phone -->
+        <div class="space-y-2">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Phone</div>
+          <div class="text-on-surface">
+            {{contact()?.mobile}}
+          </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="space-y-2">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Date of Birth</div>
+          <div class="text-on-surface">
+            {{contact()?.dateOfBirth ? ($safeNavigationMigration(contact()?.dateOfBirth) | date:'mediumDate') : 'Not provided'}}
+          </div>
+        </div>
+
+        <!-- Location Information -->
+        <div class="space-y-2">
+          <div class="text-sm text-gray-500 dark:text-gray-400">Location</div>
+          <div class="text-on-surface">
+            {{contact()?.city}}<br>
+            {{contact()?.postalCode}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

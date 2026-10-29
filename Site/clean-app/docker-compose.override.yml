@@ -1,0 +1,30 @@
+networks:
+  waf_ha_net:
+    external: true
+    name: ha-waf-stack_waf_ha_net
+
+services:
+  nginx:
+    container_name: clean-lb
+    networks:
+      waf_ha_net:
+        ipv4_address: 172.20.0.40
+    ports: []
+
+  frontend:
+    networks:
+      - waf_ha_net
+
+  api:
+    networks:
+      - waf_ha_net
+
+  postgres:
+    networks:
+      - waf_ha_net
+
+  pgadmin:
+    networks:
+      - waf_ha_net
+    ports:
+      - "127.0.0.1:5051:80"
