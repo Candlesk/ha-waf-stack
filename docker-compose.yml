@@ -1,0 +1,75 @@
+services:
+
+  backend:
+    image: nginx:alpine
+    container_name: backend
+    volumes:
+      - ./website:/usr/share/nginx/html:ro
+    networks:
+      waf_ha_net:
+        ipv4_address: 172.20.0.31
+
+  # --- WAF Nodes (ModSecurity + OWASP CRS) ---
+  waf1:
+    image: owasp/modsecurity-crs:nginx-alpine
+    container_name: waf1
+    environment:
+      - BLOCKING_PARANOIA=1
+      - ANOMALY_INBOUND=5
+      - ANOMALY_OUTBOUND=4
+      - BACKEND=http://clean-lb:80
+      - MODSEC_RULE_ENGINE=On
+      - ALLOWED_METHODS=GET HEAD POST OPTIONS PUT PATCH DELETE
+    networks:
+      waf_ha_net:
+        ipv4_address: 172.20.0.21
+
+  waf2:
+    image: owasp/modsecurity-crs:nginx-alpine
+    container_name: waf2
+    environment:
+      - BLOCKING_PARANOIA=1
+      - ANOMALY_INBOUND=5
+      - ANOMALY_OUTBOUND=4
+      - BACKEND=http://clean-lb:80
+      - MODSEC_RULE_ENGINE=On
+      - ALLOWED_METHODS=GET HEAD POST OPTIONS PUT PATCH DELETE
+    networks:
+      waf_ha_net:
+        ipv4_address: 172.20.0.22
+
+  # --- Load Balancer + HA Nodes ---
+  lb1:
+    build: ./lb-node
+    ports:
+    - "18080:80"
+    container_name: lb1
+    volumes:
+      - ./haproxy/lb1/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./keepalived/lb1/keepalived.conf:/etc/keepalived/keepalived.conf:ro
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      waf_ha_net:
+        ipv4_address: 172.20.0.10
+
+  lb2:
+    build: ./lb-node
+    container_name: lb2
+    volumes:
+      - ./haproxy/lb2/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./keepalived/lb2/keepalived.conf:/etc/keepalived/keepalived.conf:ro
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      waf_ha_net:
+        ipv4_address: 172.20.0.11
+
+networks:
+  waf_ha_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
